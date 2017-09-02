@@ -37,10 +37,19 @@ $serv->start();
 //此处接收到的是int类型的ip地址 需要转化成点四分格式的string类型的ip地址 注意网络字节序和主机字节序
 function toIp4($ipInt)
 {
-	$toHex = dechex($ipInt);
-	$len = strlen($toHex);
-	for($i = $len;$i>0;$i -= 2){
-		$rs[] = hexdec(substr($toHex,$i-2,2));
-	}
-	return implode('.',$rs);	
+    $toHex = dechex($ipInt);
+    $len = strlen($toHex);
+    if($len<8){
+        $toHex = '0'.$toHex;
+    }
+    for($i = 1;$i<5;$i++){
+        $rs[] = hexdec(substr($toHex,-2*$i,2));
+    }
+    return implode('.',$rs);    
+}
+
+function toIp($ipInt)
+{
+    $bin = pack('L',$ip);//L -- 无符号长整数 (32位，主机字节序)
+    return inet_ntop($bin);
 }

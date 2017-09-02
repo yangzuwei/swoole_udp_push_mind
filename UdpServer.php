@@ -18,7 +18,7 @@ $serv->on('receive', function ($serv, $client_ip, $port, $data)use($table) {
     $ip = toIp4($client_ip);//地址转换
     var_dump($ip,$port,$data);
 
-    //此处的table key 可以根据实际业务中的客户端唯一标识来设置 目前随便设置为时间戳
+    //此处的table key 可以根据实际业务中的客户端唯一标识来设置 目前随便设置为时间戳 验证注册逻辑也可以放在这里
     $table->set(time().'',['ip'=>$ip,'port'=>$port]);
 
     //群发消息
